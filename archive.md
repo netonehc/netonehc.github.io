@@ -26,7 +26,8 @@ title: Archive
           <ul>
         {% endif %}
       {% endunless %}
-        <li><time>{{ post.date | date:"%d %b" }} - </time>
+        <li><time>{{ post.date | date:"%d %b" }} </time>
+          <b>[{{post.author}}]</b>
           <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">
             {{ post.title }}
           </a>
