@@ -5,7 +5,7 @@ title: SolidState Writeup [HTB]
 date: 2020-11-09 09:15:00 +/- 0000
 categories: [Machine-Writeup, HackTheBox]
 tags: [CVE,Telnet,POP3,Rbash,Cron,OSCP Path]
-headline: Sense is a beginner-friendly OpenBSD machine from Hackthebox, where we will enumerate files and directories and exploit an RCE that will grant us root.
+headline: SoliState is a medium level Linux machine from Hackthebox, where we will have to access mailboxes to extract SSH credentials. We will have to "escape jail" and abuse a cron task to get root..
 image: https://www.hackthebox.eu/storage/avatars/cfb87d43d2b47380fd0f3a3efb6a47ed.png
 ---
 
