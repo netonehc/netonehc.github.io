@@ -4,6 +4,7 @@ layout: default
 
 <article>
   <h2>{{ page.title }}</h2>
+  <h2><img src="{{page.image}}"></h2>
   <time datetime="{{ page.date | date_to_xmlschema }}" class="by-line">{{ page.date | date_to_string }}</time>
   <h3>Written by: {{page.author}}</h3>
   {{ content }}

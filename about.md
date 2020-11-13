@@ -3,12 +3,24 @@ layout: page
 title: About
 ---
 
-# Historia
+# History
 
-El grupo NetON EHC se formalizó el 10 Enero, 2018 por un grupo de estudiantes de la ETSIT en la Universidad Politécnica de Valencia (Valencia, España) con el objetivo de aprender y concienciar a la sociedad sobre temas vinculados a la seguridad informática. Actualmente nos encontramos alojados dentro del programa  Generación Espontanea de la  UPV.
+The NetON EHC group was formalized on January 10, 2018 by a group of ETSIT students at the Polytechnic University of Valencia (Valencia, Spain) with the aim of learning and raising awareness in society about issues related to computer security. We are currently housed within the Spontaneous Generation program of the UPV.
 
-Todos sus integrantes nos consideramos **autodidactas**, con **proyección internacional** y formamos una estructura organizativa totalmente horizontal, lo que significa que no tenemos nadie por encima ni por debajo que nos mande, sino que cada uno se autogestiona su tiempo para cumplir los objetivos que nos marcamos entre todos.
+All of its members consider ourselves self-taught, with international projection and we form a totally horizontal organizational structure, which means that we have no one above or below to send us, but that each one manages their time to meet the objectives that we set for ourselves. everybody.
 
-# Miembros
+# Members
 
-* @jerohue
+<div class="member-container">
+  <div class="member-box">
+    <span class="member-title">Nikname:</span><span class="member-data">X4v1l0k</span><br>
+    <span class="member-title">Twitter:</span><span class="member-data"><a href="https://twitter.com/X4v1l0k">X4v1l0k</a></span><br>
+    <span class="member-title">Website:</span><span class="member-data"><a href="https://xavilok.es">https://xavilok.es</a></span>
+  </div>
+
+  <div class="member-box">
+    <span class="member-title">Nikname:</span><span class="member-data">Marmeus</span><br>
+    <span class="member-title">Twitter:</span><span class="member-data"><a href="https://twitter.com/jerohue98">Marmeus</a></span><br>
+    <span class="member-title">Website:</span><span class="member-data"><a href="https://marmeus.tech">https://marmeus.tech</a></span>
+  </div>
+</div>

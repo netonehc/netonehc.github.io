@@ -3,15 +3,22 @@ layout: default
 ---
 
 <ul>
-    {% for post in paginator.posts %}
-      <li>
-          <h2><a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a></h2>
+  {% for post in paginator.posts %}
+    <li>
+      <h2><a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a></h2>
+      <div class="post-box">
+        <div class="post-img">
+          <img src="{{post.image}}">
+        </div>
+        <div class="post-body">
           <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>
           <h3>{{post.author}}</h3>
           <p>{{ post.content | strip_html | truncatewords:50 }}</p>
           {% for tag in post.tags %}
           <a href="/tags.html#{{ tag | slugify }}"> {{ tag }}</a> &nbsp;&nbsp;
           {% endfor %}
-      </li>
-    {% endfor %}
+        </div>
+      <div>
+    </li>
+  {% endfor %}
 </ul>

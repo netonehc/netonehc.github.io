@@ -2,3 +2,41 @@
 #
 ---
 @import "base";
+
+.member-box {
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 10px;
+    float: left;
+    margin-right: 20px;
+  }
+  
+  .member-title {
+    display: inline;
+    font-weight: bold;
+    margin-right: 10px
+  }
+  
+  .member-data {
+    display: inline;
+  }
+
+  .post-box {
+    display: flex;
+    margin-bottom: 30px;
+  }
+  
+  .post-img {
+    display: inline;
+    text-align: center;
+    min-width: 25%;
+  }
+  
+  .post-body {
+    padding-left: 20px;
+    display: inline;
+    max-width: 75%;
+  }
+
+
+  
