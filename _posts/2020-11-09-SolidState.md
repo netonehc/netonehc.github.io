@@ -11,7 +11,6 @@ image: https://www.hackthebox.eu/storage/avatars/cfb87d43d2b47380fd0f3a3efb6a47e
 
 SolidState - 10.10.10.51
 ===
-![](https://www.hackthebox.eu/storage/avatars/cfb87d43d2b47380fd0f3a3efb6a47ed.png)
 ###### tags: `HTB` `Medium` `Linux`
 
 # Enumeración

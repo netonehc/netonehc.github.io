@@ -38,5 +38,27 @@
     max-width: 75%;
   }
 
-
+  .home-link {
+    text-align: center;
+  }
+  
+  .goto-home,
+  .goto-website {
+    font-size: 24px;
+    line-height: 1.5;
+    text-decoration: none;
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    color: #b5e853;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.1),0 0 5px rgba(181,232,83,0.1),0 0 10px rgba(181,232,83,0.1);
+    letter-spacing: -1px;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  .goto-website {
+    font-size: 20px;
+    color: #63c0f5;
+  }
   
