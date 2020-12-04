@@ -15,12 +15,18 @@ All of its members consider ourselves self-taught, with international projection
   <div class="member-box">
     <span class="member-title">Nikname:</span><span class="member-data">X4v1l0k</span><br>
     <span class="member-title">Twitter:</span><span class="member-data"><a href="https://twitter.com/X4v1l0k">X4v1l0k</a></span><br>
-    <span class="member-title">Website:</span><span class="member-data"><a href="https://xavilok.es">https://xavilok.es</a></span>
+    <span class="member-title">Website:</span><span class="member-data"><a href="https://xavilok.es">xavilok.es</a></span>
   </div>
 
   <div class="member-box">
     <span class="member-title">Nikname:</span><span class="member-data">Marmeus</span><br>
     <span class="member-title">Twitter:</span><span class="member-data"><a href="https://twitter.com/jerohue98">Marmeus</a></span><br>
-    <span class="member-title">Website:</span><span class="member-data"><a href="https://marmeus.tech">https://marmeus.tech</a></span>
+    <span class="member-title">Website:</span><span class="member-data"><a href="https://marmeus.tech">marmeus.tech</a></span>
+  </div>
+
+  <div class="member-box">
+    <span class="member-title">Nikname:</span><span class="member-data">N0xi0us</span><br>
+    <span class="member-title">Twitter:</span><span class="member-data"><a href="https://twitter.com/_N0xi0us_">_N0xi0us_</a></span><br>
+    <span class="member-title">Website:</span><span class="member-data"><a href="https://noxious.tech/">noxious.tech</a></span>
   </div>
 </div>
