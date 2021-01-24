@@ -21,7 +21,7 @@ All of its members consider ourselves self-taught, with international projection
   <div class="member-box">
     <span class="member-title">Nikname:</span><span class="member-data">Marmeus</span><br>
     <span class="member-title">Twitter:</span><span class="member-data"><a href="https://twitter.com/jerohue98">Marmeus</a></span><br>
-    <span class="member-title">Website:</span><span class="member-data"><a href="https://marmeus.tech">marmeus.tech</a></span>
+    <span class="member-title">Website:</span><span class="member-data"><a href="https://marmeus.com">marmeus.tech</a></span>
   </div>
 
   <div class="member-box">
